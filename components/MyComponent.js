@@ -13,7 +13,6 @@ export default class MyComponent extends Component {
     {
         super();
         this.state = {
-            content : "THIS IS A CONTENT",
             input1 : 0,
             input2: 0,
             result:0
@@ -39,8 +38,7 @@ export default class MyComponent extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>{this.props.title}</Text>
-                <Text>{this.state.content}</Text>
+                <Text style={styles.welcome}>{this.props.title}</Text>
 
                 <TextInput
                     style={{width:200}}
@@ -77,7 +75,7 @@ const styles = StyleSheet.create({
         width:200
     },
     welcome: {
-        fontSize: 20,
+        fontSize: 28,
         textAlign: 'center',
         margin: 10,
     },
