@@ -8,28 +8,49 @@ import {
     TouchableOpacity,
     FlatList
 } from 'react-native';
-
-const userData = [
-    {key:'Jodi'},
-    {key:'Coding'},
-    {key:'Vlog'},
-];
+import axios from 'axios';
 
 export default class ListComponent extends Component {
+    constructor()
+    {
+        super();
+        this.state={
+            userData:null
+        }
+    }
+
+    componentWillMount()
+    {
+        axios.get('https://jsonplaceholder.typicode.com/users')
+            .then((response)=>{
+                console.log(response.data);
+                this.setState({
+                    userData:response.data
+                });
+            })
+            .catch((err)=>{
+                console.log(err);
+            });
+    }
+
     render()
     {
         return(
-            <FlatList
-                data={userData}
-                renderItem = {({item})=>
-                    <TouchableOpacity
-                        style={style.item}
-                        onPress={()=>alert("YOU TOUCHED ON : "+item.key)}>
-                        <Text style={{fontSize:20}}>{item.key}</Text>
-                    </TouchableOpacity>
+                !this.state.userData ?
+                    <Text>LOADING</Text>
+                    :
+                    <FlatList
+                        data={this.state.userData}
+                        renderItem = {({item})=>
+                            <TouchableOpacity
+                                style={style.item}
+                                onPress={()=>alert("YOU TOUCHED ON : "+item.name)}>
+                                <Text style={{fontSize:20}}>{item.name}</Text>
+                            </TouchableOpacity>
 
-                }
-            />
+                        }
+                        keyExtractor = {(item)=>item.id}
+                    />
         );
     }
 }
