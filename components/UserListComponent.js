@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 
-export default class ListComponent extends Component {
+export default class UserListComponent extends Component {
     constructor()
     {
         super();
@@ -33,6 +33,13 @@ export default class ListComponent extends Component {
             });
     }
 
+    goToDetail(id)
+    {
+        this.props.navigation.navigate('UserDetailScreen',{
+            userId : id
+        });
+    }
+
     render()
     {
         return(
@@ -44,7 +51,7 @@ export default class ListComponent extends Component {
                         renderItem = {({item})=>
                             <TouchableOpacity
                                 style={style.item}
-                                onPress={()=>alert("YOU TOUCHED ON : "+item.name)}>
+                                onPress={()=>this.goToDetail(item.id)}>
                                 <Text style={{fontSize:20}}>{item.name}</Text>
                             </TouchableOpacity>
 
